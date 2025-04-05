@@ -31,38 +31,38 @@ export async function register(username, password) {
       throw new Error(parsedData.error.errors.map(err => err.message).join(', '));
     }
 
-    const existingUser = await prisma.user.findUnique({
-      where: { username },
-    });
+    // const existingUser = await prisma.user.findUnique({
+    //   where: { username },
+    // });
 
-    if (existingUser) {
-      throw new Error("User already exists");
-    }
+    // if (existingUser) {
+    //   throw new Error("User already exists");
+    // }
 
-    const hashedPassword = await hash(password, 10);
+    // const hashedPassword = await hash(password, 10);
 
-    const newUser = await prisma.user.create({
-      data: {
-        username,
-        password: hashedPassword,
-      },
-      select: {
-        id: true,
-        username: true,
-      },
-    });
+    // const newUser = await prisma.user.create({
+    //   data: {
+    //     username,
+    //     password: hashedPassword,
+    //   },
+    //   select: {
+    //     id: true,
+    //     username: true,
+    //   },
+    // });
 
-    const token = await encodeJWT({
-      id: newUser.id,
-      username: newUser.username,
-    });
+    // const token = await encodeJWT({
+    //   id: newUser.id,
+    //   username: newUser.username,
+    // });
 
-    await cookies().set("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24,
-      path: "/",
-    });
+    // await cookies().set("token", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   maxAge: 60 * 60 * 24,
+    //   path: "/",
+    // });
 
   } catch (error) {
     return { error: error.message };
@@ -76,35 +76,35 @@ export async function login(username, password) {
       throw new Error(parsedData.error.errors.map(err => err.message).join(', '));
     }
 
-    const user = await prisma.user.findUnique({
-      where: { username },
-      select: {
-        id: true,
-        username: true,
-        password: true,
-      },
-    });
+    // const user = await prisma.user.findUnique({
+    //   where: { username },
+    //   select: {
+    //     id: true,
+    //     username: true,
+    //     password: true,
+    //   },
+    // });
 
-    if (!user) {
-      throw new Error("Invalid username or password");
-    }
+    // if (!user) {
+    //   throw new Error("Invalid username or password");
+    // }
 
-    const isValid = await compare(password, user.password);
-    if (!isValid) {
-      throw new Error("Invalid username or password");
-    }
+    // const isValid = await compare(password, user.password);
+    // if (!isValid) {
+    //   throw new Error("Invalid username or password");
+    // }
 
-    const token = await encodeJWT({
-      id: user.id,
-      username: user.username,
-    });
+    // const token = await encodeJWT({
+    //   id: user.id,
+    //   username: user.username,
+    // });
 
-    await cookies().set("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24,
-      path: "/",
-    });
+    // await cookies().set("token", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   maxAge: 60 * 60 * 24,
+    //   path: "/",
+    // });
 
   } catch (error) {
     return { error: error.message };

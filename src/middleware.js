@@ -13,35 +13,35 @@ export async function middleware(req) {
     return NextResponse.redirect(new URL("/login", req.url)); 
   }
 
-  if (req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/register") {
-    if (token) {
-      return NextResponse.redirect(new URL("/dashboard", req.url)); 
-    }
-    return NextResponse.next(); 
-  }
+//   if (req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/register") {
+//     if (token) {
+//       return NextResponse.redirect(new URL("/dashboard", req.url)); 
+//     }
+//     return NextResponse.next(); 
+//   }
 
-  if (
-    req.nextUrl.pathname.startsWith("/dashboard") 
-  ) {
+//   if (
+//     req.nextUrl.pathname.startsWith("/dashboard") 
+//   ) {
 
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
+//     if (!token) {
+//       return NextResponse.redirect(new URL("/login", req.url));
+//     }
 
-    try {
+//     try {
       
-      await jwtVerify(token, secret);
-      return NextResponse.next(); 
-    } catch (error) {
-      const response = NextResponse.redirect(new URL("/login", req.url));
-      response.cookies.delete("token");
-      return response;
-    }
-  }
+//       await jwtVerify(token, secret);
+//       return NextResponse.next(); 
+//     } catch (error) {
+//       const response = NextResponse.redirect(new URL("/login", req.url));
+//       response.cookies.delete("token");
+//       return response;
+//     }
+//   }
 
-  return NextResponse.next(); 
-}
+//   return NextResponse.next(); 
+// }
 
-export const config = {
-  matcher: ["/", "/register", "/dashboard/:path*", "/login"], 
+// export const config = {
+//   matcher: ["/", "/register", "/dashboard/:path*", "/login"], 
 };
