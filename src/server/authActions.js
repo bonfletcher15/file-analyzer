@@ -63,6 +63,7 @@ export async function register(username, password) {
     //   maxAge: 60 * 60 * 24,
     //   path: "/",
     // });
+     return { success: true, message: "Register stub" };
 
   } catch (error) {
     return { error: error.message };
@@ -105,6 +106,7 @@ export async function login(username, password) {
     //   maxAge: 60 * 60 * 24,
     //   path: "/",
     // });
+     return { success: true, message: "Register stub" };
 
   } catch (error) {
     return { error: error.message };
