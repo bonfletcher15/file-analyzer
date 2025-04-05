@@ -38,13 +38,13 @@ const RegisterForm = () => {
       try {
         registerSchema.parse(formData);
 
-        const result = await register(formData.email, formData.password);
+        // const result = await register(formData.email, formData.password);
 
-        if (result?.error) {
-          setErrors({ email: "", password: '', general: result.error });
-        } else {
+        // if (result?.error) {
+        //   setErrors({ email: "", password: '', general: result.error });
+        // } else {
           router.push('/dashboard');
-        }
+        // }
       } catch (error) {
         if (error instanceof z.ZodError) {
           const newErrors = {};

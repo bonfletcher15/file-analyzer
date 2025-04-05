@@ -38,13 +38,13 @@ const LoginForm = () => {
       try {
         loginSchema.parse(formData);
 
-        const result = await login(formData.email, formData.password);
+        // const result = await login(formData.email, formData.password);
 
-        if (result?.error) {
-          setErrors({ email: "", password: '', general: result.error });
-        } else {
+        // if (result?.error) {
+        //   setErrors({ email: "", password: '', general: result.error });
+        // } else {
           router.push('/dashboard');
-        }
+        // }
       } catch (error) {
         if (error instanceof z.ZodError) {
           const newErrors = {};
